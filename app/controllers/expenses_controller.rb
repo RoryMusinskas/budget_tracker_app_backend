@@ -1,4 +1,4 @@
-class ExpensesController < ApplicationController
+class ExpensesController < SecuredController
   before_action :set_expense, only: [:show, :update, :destroy]
 
   # GET /expenses
@@ -11,6 +11,8 @@ class ExpensesController < ApplicationController
   # GET /expenses/1
   def show
     render json: @expense
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
   end
 
   # POST /expenses
@@ -36,6 +38,7 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1
   def destroy
     @expense.destroy
+    head :no_content
   end
 
   private
@@ -46,6 +49,6 @@ class ExpensesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def expense_params
-      params.require(:expense).permit(:description, :amount, :user_id, :category_id)
+      params.permit(:description, :amount, :user_id, :category_id)
     end
 end

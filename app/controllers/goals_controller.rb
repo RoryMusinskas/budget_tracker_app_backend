@@ -1,4 +1,4 @@
-class GoalsController < ApplicationController
+class GoalsController < SecuredController
   before_action :set_goal, only: [:show, :update, :destroy]
 
   # GET /goals
@@ -11,6 +11,8 @@ class GoalsController < ApplicationController
   # GET /goals/1
   def show
     render json: @goal
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
   end
 
   # POST /goals
@@ -36,6 +38,7 @@ class GoalsController < ApplicationController
   # DELETE /goals/1
   def destroy
     @goal.destroy
+    head :no_content
   end
 
   private
@@ -46,6 +49,6 @@ class GoalsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def goal_params
-      params.require(:goal).permit(:description, :due_date)
+      params.permit(:description, :due_date)
     end
 end

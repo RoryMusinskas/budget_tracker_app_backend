@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < SecuredController
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
@@ -11,6 +11,8 @@ class UsersController < ApplicationController
   # GET /users/1
   def show
     render json: @user
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
   end
 
   # POST /users
@@ -36,6 +38,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+    head :no_content
   end
 
   private
@@ -46,6 +49,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:email, :shares_preferences)
+      params.permit(:email, :shares_preferences)
     end
 end

@@ -1,4 +1,4 @@
-class CategoriesController < ApplicationController
+class CategoriesController < SecuredController
   before_action :set_category, only: [:show, :update, :destroy]
 
   # GET /categories
@@ -11,6 +11,8 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   def show
     render json: @category
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
   end
 
   # POST /categories
@@ -36,6 +38,7 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1
   def destroy
     @category.destroy
+    head :no_content
   end
 
   private
@@ -46,6 +49,6 @@ class CategoriesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def category_params
-      params.require(:category).permit(:description)
+      params.permit(:description)
     end
 end
