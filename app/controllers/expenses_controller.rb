@@ -4,8 +4,8 @@ class ExpensesController < SecuredController
   # GET /expenses
   def index
     @expenses = Expense.all
-
     render json: @expenses
+    puts @decoded_request[0]['sub']
   end
 
   # GET /expenses/1
@@ -49,6 +49,6 @@ class ExpensesController < SecuredController
 
     # Only allow a trusted parameter "white list" through.
     def expense_params
-      params.permit(:description, :amount, :user_id, :category_id)
+      params.require(:expense).permit(:description, :amount, :user_id, :category_id)
     end
 end

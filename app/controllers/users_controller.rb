@@ -17,13 +17,18 @@ class UsersController < SecuredController
 
   # POST /users
   def create
+    if User.where(email: @current_user)
+      puts @current_user
+    else
     @user = User.new(user_params)
+    
 
     if @user.save
       render json: @user, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
+  end
   end
 
   # PATCH/PUT /users/1
@@ -49,6 +54,6 @@ class UsersController < SecuredController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.permit(:email, :shares_preferences)
+      params.require(:user).permit(:email, shares_preferences: [])
     end
 end

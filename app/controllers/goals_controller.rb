@@ -49,6 +49,6 @@ class GoalsController < SecuredController
 
     # Only allow a trusted parameter "white list" through.
     def goal_params
-      params.permit(:description, :due_date)
+      params.require(:goal).permit(:description, :due_date)
     end
 end
