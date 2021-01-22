@@ -17,18 +17,15 @@ class UsersController < SecuredController
 
   # POST /users
   def create
-    if User.where(email: @current_user)
-      puts @current_user
-    else
-    @user = User.new(user_params)
-    
+    if User.where(email: @current_user).exists? == false
+      @user = User.new(user_params)
 
-    if @user.save
-      render json: @user, status: :created, location: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
+      if @user.save
+        render json: @user, status: :created, location: @user
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
     end
-  end
   end
 
   # PATCH/PUT /users/1
