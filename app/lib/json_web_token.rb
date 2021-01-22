@@ -10,6 +10,7 @@ class JsonWebToken
                iss: Rails.application.credentials.auth0[:domain],
                verify_iss: true,
                aud: Rails.application.credentials.auth0[:api_identifier],
+               sub: Rails.application.credentials.auth0[:sub],
                verify_aud: true) do |header|
       jwks_hash[header['kid']]
     end
