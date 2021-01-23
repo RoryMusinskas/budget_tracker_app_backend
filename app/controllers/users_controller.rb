@@ -17,9 +17,8 @@ class UsersController < SecuredController
 
   # POST /users
   def create
-    if User.where(email: @current_user).exists? == false
+    if User.where(email: SecuredController.current_user).exists? == false
       @user = User.new(user_params)
-
       if @user.save
         render json: @user, status: :created, location: @user
       else
