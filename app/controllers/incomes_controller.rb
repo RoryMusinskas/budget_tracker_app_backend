@@ -1,4 +1,4 @@
-class IncomesController < ApplicationController
+class IncomesController < SecuredController
   before_action :set_income, only: [:show, :update, :destroy]
 
   # GET /incomes
@@ -11,6 +11,8 @@ class IncomesController < ApplicationController
   # GET /incomes/1
   def show
     render json: @income
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
   end
 
   # POST /incomes
@@ -36,6 +38,7 @@ class IncomesController < ApplicationController
   # DELETE /incomes/1
   def destroy
     @income.destroy
+    head :no_content
   end
 
   private
