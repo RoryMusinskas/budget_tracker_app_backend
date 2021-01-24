@@ -1,3 +1,3 @@
 class Category < ApplicationRecord
-  validates_presence_of :description, :due_date
+  validates_presence_of :description
 end
