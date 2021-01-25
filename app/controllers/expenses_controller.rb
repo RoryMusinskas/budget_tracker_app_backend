@@ -17,6 +17,7 @@ class ExpensesController < SecuredController
   # POST /expenses
   # Once post request has been made, pull in the params and add to new, then add the current user id 
   def create
+    # Get the variables passed in from params on create
     description = params['expense']['description']
     amount = params['expense']['amount'] 
     category_id = params['expense']['category_id']
