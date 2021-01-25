@@ -3,7 +3,8 @@ class ExpensesController < SecuredController
   # GET /expenses
   def index
     # Get all the expenses based on the current user
-    @expenses = Expense.where(user_id: SecuredController.current_user_id)
+    @expenses = Expense.where(user_sub: SecuredController.current_user_id)
+    p @expenses
     render json: @expenses
   end
 
@@ -21,7 +22,7 @@ class ExpensesController < SecuredController
     description = params['expense']['description']
     amount = params['expense']['amount'] 
     category_id = params['expense']['category_id']
-    @expense = Expense.new(description: description, amount: amount, user_id: SecuredController.current_user_id, category_id: category_id)
+    @expense = Expense.new(description: description, amount: amount, user_sub: SecuredController.current_user_id, category_id: category_id)
 
     if @expense.save
       render json: @expense, status: :created, location: @expense
@@ -56,6 +57,6 @@ class ExpensesController < SecuredController
     
     # Only allow a trusted parameter "white list" through.
     def expense_params
-      params.require(:expense).permit(:description, :amount, :user_id, :category_id)
+      params.require(:expense).permit(:description, :amount, :user_sub, :category_id)
     end
 end

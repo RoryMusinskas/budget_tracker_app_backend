@@ -22,7 +22,7 @@ class SecuredController < ApplicationController
     # Update these details only when the user endpoint is checked to see if the user exists or not (This is ran every refresh)
     if params[:controller] == 'users'
       SecuredController.current_user = params[:user][:email]
-      SecuredController.current_user_id = User.where(email: params[:user][:email]).ids[0]
+      SecuredController.current_user_id = User.where(email: params[:user][:sub]) # Changed [:email].ids[0] as [:sub] to set user.sub from auth0
     end
   end
 end
