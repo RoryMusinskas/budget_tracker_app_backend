@@ -20,10 +20,7 @@ class SecuredController < ApplicationController
   # Once we have user data, set the Class attributes to pass to children
   def set_class_attribute
     # Update these details only when the user endpoint is checked to see if the user exists or not (This is ran every refresh)
-    puts '----------------------------------'
-    puts params
-    puts '----------------------------------'
-    if params[:controller] == 'users' && params[:action] == 'create' 
+    if params[:controller] == 'users' && params[:action] == 'create'
       SecuredController.current_user = params[:user][:email]
       SecuredController.current_user_id = User.where(email: params[:user][:email]).ids[0]
     end

@@ -21,6 +21,8 @@ class UsersController < SecuredController
       @user = User.new(user_params)
       if @user.save
         render json: @user, status: :created, location: @user
+        # set the current user id of the controller to the current user, this stops the error of having nil id before refresh
+        SecuredController.current_user_id = @user.id
       else
         render json: @user.errors, status: :unprocessable_entity
       end
