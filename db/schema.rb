@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_21_024144) do
+ActiveRecord::Schema.define(version: 2021_01_28_051439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,12 +24,11 @@ ActiveRecord::Schema.define(version: 2021_01_21_024144) do
   create_table "expenses", force: :cascade do |t|
     t.string "description"
     t.float "amount"
-    t.bigint "user_id", null: false
     t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "user_sub", null: false
     t.index ["category_id"], name: "index_expenses_on_category_id"
-    t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
   create_table "goals", force: :cascade do |t|
@@ -37,29 +36,27 @@ ActiveRecord::Schema.define(version: 2021_01_21_024144) do
     t.datetime "due_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "user_sub", null: false
   end
 
   create_table "incomes", force: :cascade do |t|
     t.string "description"
     t.float "amount"
-    t.bigint "user_id", null: false
     t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "user_sub", null: false
     t.index ["category_id"], name: "index_incomes_on_category_id"
-    t.index ["user_id"], name: "index_incomes_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "shares_preferences", default: [], array: true
+  create_table "shares", force: :cascade do |t|
+    t.string "description"
+    t.string "symbol"
+    t.string "user_sub", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "expenses", "categories"
-  add_foreign_key "expenses", "users"
   add_foreign_key "incomes", "categories"
-  add_foreign_key "incomes", "users"
 end
