@@ -4,8 +4,6 @@ class SecuredController < ApplicationController
   require 'openssl'
   require 'json'
   before_action :authorize_request
-  # Created class attribute, this is set when the authentication is successful
-  class_attribute :current_user, :current_user_id
 
   private
 
