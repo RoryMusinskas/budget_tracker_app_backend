@@ -24,7 +24,6 @@ class ExpensesController < SecuredController
       render json: @expense, status: :created, location: @expense
     else
       render json: @expense.errors, status: :unprocessable_entity
-      puts @expense.errors.messages
     end
   end
 
