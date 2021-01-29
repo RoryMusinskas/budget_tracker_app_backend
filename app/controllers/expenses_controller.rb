@@ -27,7 +27,6 @@ class ExpensesController < SecuredController
     end
   end
 
-  # TODO - USER AUTHENTICATION TO ONLY UPDATE OWN EXPENSES
   # PATCH/PUT /expenses/1
   def update
     if @expense.update(expense_params)
@@ -37,7 +36,6 @@ class ExpensesController < SecuredController
     end
   end
 
-  # TODO - USER AUTHENTICATION TO ONLY DELETE OWN EXPENSES
   # DELETE /expenses/1
   def destroy
     @expense.destroy
