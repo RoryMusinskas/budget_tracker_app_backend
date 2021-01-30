@@ -1,6 +1,5 @@
 class Expense < ApplicationRecord
-  belongs_to :user
   belongs_to :category
   
-  validates_presence_of :description, :amount, :category_id
+  validates_presence_of :description, :amount, :category_id, :user_sub
 end
