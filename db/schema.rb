@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_31_062538) do
+ActiveRecord::Schema.define(version: 2021_02_01_093150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2021_01_31_062538) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_sub", null: false
     t.string "title"
+    t.date "date"
     t.index ["category_id"], name: "index_expenses_on_category_id"
   end
 
