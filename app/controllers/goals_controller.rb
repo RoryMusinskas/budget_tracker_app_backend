@@ -16,7 +16,6 @@ class GoalsController < SecuredController
 
   # POST /goals
   def create
-    puts params
     @goal = Goal.new(user_sub: params['user_sub'], goals_data: { goals: params['goals_data']['goals'], columns: params['goals_data']['columns'], columnOrder: params['goals_data']['columnOrder'] })
 
     if @goal.save
@@ -37,7 +36,7 @@ class GoalsController < SecuredController
 
   # DELETE /goals/1
   def destroy
-    @goal.destroy
+    Goal.destroy(params['id'])
     head :no_content
   end
 
@@ -45,7 +44,7 @@ class GoalsController < SecuredController
     # Use callbacks to share common setup or constraints between actions.
     def set_goal
       # set the goal to the current user sub, not an ID. This allows for moving goals on boards without a refresh
-      @goal = Goal.where(user_sub: @current_user)
+      @goal = Goal.where(user_sub: params['user_sub'])
     end
 
     # Only allow a trusted parameter "white list" through.
