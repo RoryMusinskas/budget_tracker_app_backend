@@ -3,8 +3,7 @@ class GoalsController < SecuredController
 
   # GET /goals
   def index
-    @goals = Goal.all
-
+    @goals = Goal.where(user_sub: @current_user)
     render json: @goals
   end
 
@@ -49,6 +48,6 @@ class GoalsController < SecuredController
 
     # Only allow a trusted parameter "white list" through.
     def goal_params
-      params.require(:goal).permit(:description, :due_date)
+      params.require(:goal).permit(:description, :due_date, :user_sub)
     end
 end
