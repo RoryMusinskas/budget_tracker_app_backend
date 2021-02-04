@@ -3,7 +3,7 @@ class IncomesController < SecuredController
 
   # GET /incomes
   def index
-    @incomes = Income.all
+    @incomes = Income.where(user_sub: @current_user)
 
     render json: @incomes
   end
@@ -49,6 +49,6 @@ class IncomesController < SecuredController
 
     # Only allow a trusted parameter "white list" through.
     def income_params
-      params.require(:income).permit(:description, :amount, :user_id, :category_id)
+      params.require(:income).permit(:description, :amount, :user_sub, :category_id)
     end
 end
