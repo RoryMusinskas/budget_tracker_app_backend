@@ -25,7 +25,8 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-
+/config/credentials.yml.enc
 /config/credentials/development.key
+/config/credentials/development.yml.enc
 
 coverage/.last_run.json
