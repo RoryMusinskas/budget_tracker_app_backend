@@ -10,8 +10,6 @@ class ExpensesController < SecuredController
   # GET /expenses/1
   def show
     render json: @expense
-  rescue ActiveRecord::RecordNotFound
-    head :not_found
   end
 
   # POST /expenses
