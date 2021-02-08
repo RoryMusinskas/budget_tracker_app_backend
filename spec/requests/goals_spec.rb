@@ -4,7 +4,7 @@ require 'uri'
 require 'net/http'
 require 'openssl'
 
-RSpec.describe "/goals", type: :request do
+RSpec.describe "Goals Request", type: :request do
 
 # Make request to auth0 to get a test token to use for the valid header
 url = URI("#{Rails.application.credentials.auth0[:domain]}oauth/token")
@@ -34,7 +34,7 @@ access_token = data['access_token']
 
   describe "GET /index" do
     it "renders a successful response" do
-      test = Goal.create! valid_attributes
+      Goal.create! valid_attributes
       get goals_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
@@ -84,7 +84,6 @@ access_token = data['access_token']
 
   describe "PATCH /update" do
     context "with valid parameters" do
-
       it "updates the requested goal" do
         goal = Goal.create! valid_attributes
         new_attributes = {goals_data: {goals: {'goal-1': {'id': 'goal-1', 'content': 'update', 'description':'update'}}, columns:{'column-1': { 'id': 'column-1', 'title': 'column-1', 'goalIds':['goal-1']  }}, 'columnOrder':['column-1']}, user_sub: "user"}
