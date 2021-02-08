@@ -5,7 +5,7 @@ require 'net/http'
 require 'openssl'
 
 
-RSpec.describe "/expenses", type: :request do
+RSpec.describe "Expenses Request", type: :request do
 
 # Make request to auth0 to get a test token to use for the valid header
 url = URI("#{Rails.application.credentials.auth0[:domain]}oauth/token")

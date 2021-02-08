@@ -11,8 +11,6 @@ class CategoriesController < SecuredController
   # GET /categories/1
   def show
     render json: @category
-  rescue ActiveRecord::RecordNotFound
-    head :not_found
   end
 
   # POST /categories

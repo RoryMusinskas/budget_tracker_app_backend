@@ -11,8 +11,6 @@ class IncomesController < SecuredController
   # GET /incomes/1
   def show
     render json: @income
-  rescue ActiveRecord::RecordNotFound
-    head :not_found
   end
 
   # POST /incomes

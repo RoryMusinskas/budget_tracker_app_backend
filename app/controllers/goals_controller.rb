@@ -10,8 +10,6 @@ class GoalsController < SecuredController
   # GET /goals/1
   def show
     render json: @goal
-  rescue ActiveRecord::RecordNotFound
-    head :not_found
   end
 
   # POST /goals
@@ -49,6 +47,6 @@ class GoalsController < SecuredController
 
     # Only allow a trusted parameter "white list" through.
     def goal_params
-      params.permit(:user_sub).permit!(:goals_data)
+      params.permit!(:user_sub, :goals_data)
     end
 end

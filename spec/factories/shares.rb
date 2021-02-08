@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :share do
-    description { "MyString" }
-    symbol { "MyString" }
-    user_sub { "MyString" }
+    description { "New Share" }
+    symbol { "ASX200" }
+    user_sub { "user sub" }
   end
 end
