@@ -1,6 +1,23 @@
 require 'rails_helper'
+require 'json'
+require 'uri'
+require 'net/http'
+require 'openssl'
 
 RSpec.describe "/categories", type: :request do
+
+# Make request to auth0 to get a test token to use for the valid header
+url = URI("#{Rails.application.credentials.auth0[:domain]}oauth/token")
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"client_id\":\"#{Rails.application.credentials.auth0[:test_client_id]}\",\"client_secret\":\"#{Rails.application.credentials.auth0[:test_client_secret]}\",\"audience\":\"#{Rails.application.credentials.auth0[:api_identifier]}\",\"grant_type\":\"client_credentials\"}"
+token_response = http.request(request)
+data = JSON.parse(token_response.body)
+access_token = data['access_token']
+
   let(:valid_attributes) {
       {description: 'description'}
   }
@@ -11,7 +28,7 @@ RSpec.describe "/categories", type: :request do
 
   let(:valid_headers){
     {
-      Authorization: Rails.application.credentials.auth0[:api_authorization]
+      Authorization: access_token
     }
   }
 
